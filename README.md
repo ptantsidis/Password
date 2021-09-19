@@ -11,3 +11,5 @@ Merge chosen arrays together and complete number of characters randdomly from co
 Clear pwdTxt array of commas be creating string of password to display on screen.
 
 ![passwordGenerator](https://user-images.githubusercontent.com/90045665/133946183-29f702b9-8ffa-4bb4-99cb-5821ffd62f6d.png)
+
+https://ptantsidis.github.io/Password/
