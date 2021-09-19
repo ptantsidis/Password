@@ -5,20 +5,17 @@ let lowercaseCharacters = 'abcdefghijklmnopqrstuvwxyz'.split(''); //# of charact
 let numberCharacters = '0123456789'.split(''); //10 numbers
 let specialCharacters = '!@#$%^&*()_+~<>?,./{}|'.split('');
 let charRules = [8, 128, "false"] //min,max and did we validate for upper lower or number
-// let CharKey = Math.floor(Math.random() * 23) + 1; // to pick random indexes from specific arrays
-// let numKey = Math.floor(Math.random() * 9) + 1;
-// let spcKey = Math.floor(Math.random() * 23) + 1;
-let pwdTxt = [];
-let choiceCharacters = [];
 
-let pwdChoice = {
-  charNum: 0,
-  charUpper: false,
-  charLower: false,
-  charNumber: false,
-  charSpecial: false,
-}
 function generatePassword() {
+  let pwdTxt = [];
+  let choiceCharacters = [];
+  let pwdChoice = {
+    charNum: 0,
+    charUpper: false,
+    charLower: false,
+    charNumber: false,
+    charSpecial: false,
+  }
   // track user options
   let userChoice = window.prompt("Number of Characters in password?");
 
@@ -28,102 +25,74 @@ function generatePassword() {
     alert("Number must be between " + charRules[0] + " " + charRules[1]);
     return;
   }
-  let userUpper = window.prompt("Uppercase Characters T-True?");
-  userUpper = userUpper.toUpperCase()
 
-  if (userUpper === "T") {
-    pwdChoice.charUpper = true;
-  } else {
-    alert("Must be T for True or anything else will be False");
-    pwdChoice.charUpper = false;
-  }
- 
-  let userLower = window.prompt("Lowercase Characters T-True?");
-  userLower = userLower.toUpperCase()
+  pwdChoice.charUpper = window.confirm("Uppercase Characters OK?");
+  pwdChoice.charLower = window.confirm("Lowercase Characters OK?");
+  pwdChoice.charNumber = window.confirm("Number Characters OK?");
+  pwdChoice.charSpecial = window.confirm("Special Characters OK?");
 
-  if (userLower === "T") {
-    pwdChoice.charLower = true;
-  } else {
-    pwdChoice.charLower = false;
+  // Validate at least one is on
+  if ((pwdChoice.charNumber === false) && (pwdChoice.charUpper === false) && (pwdChoice.charLower === false) && (pwdChoice.charSpecial === false)) {
+    alert("Must have a least one True choice for upper, lower, number or special character, try again");
+    return;
   }
 
-  let userNumber = window.prompt("Numbered Characters T-True?");
-  userNumber = userNumber.toUpperCase()
 
-  if (userNumber === "T") {
-    pwdChoice.charNumber = true;
-  } else {
-    pwdChoice.charNumber = false;
+  upperKey = Math.floor((Math.random() * 23) + 1); // to pick random indexes from specific arrays
+  lowerKey = Math.floor((Math.random() * 23) + 1); // to pick random indexes from specific arrays
+  numKey = Math.floor((Math.random() * 9) + 1);
+  spcKey = Math.floor((Math.random() * 23) + 1);
+
+  if (pwdChoice.charUpper === true) {
+    choiceCharacters = choiceCharacters.concat(uppercaseCharacters);
+    pwdTxt = pwdTxt.concat(uppercaseCharacters[upperKey]);
+    console.log(pwdChoice.charUpper);
   }
 
-  let userSpecial = window.prompt("Special Characters T-True?");
-  userSpecial = userSpecial.toUpperCase()
-
-  if (userSpecial === "T") {
-    pwdChoice.charSpecial = true;
-  } else {
-    pwdChoice.charSpecial = false;
+  if (pwdChoice.charLower === true) {
+    choiceCharacters = choiceCharacters.concat(lowercaseCharacters);
+    pwdTxt = pwdTxt.concat(lowercaseCharacters[lowerKey]);
+    console.log(pwdChoice.charLower);
   }
 
-// Validate at least one is on
-  if ((pwdChoice.charNumber = false) && (pwdChoice.charUpper = false) && (pwdChoice.charLower = false) && (pwdChoice.charSpecial = false)); {
-    alert("Must have a least one True choice for upper, lower, number or special character. Choosing special characters.");
-    pwdChoice.charSpecial = true;
-    charRules[2] = true;
-    } 
-    
-    upperKey = Math.floor((Math.random() * 23) + 1); // to pick random indexes from specific arrays
-    lowerKey = Math.floor((Math.random() * 23) + 1); // to pick random indexes from specific arrays
-    numKey = Math.floor((Math.random() * 9) + 1);
-    spcKey = Math.floor((Math.random() * 23) + 1);
-
-    if (pwdChoice.charUpper = true) {
-      choiceCharacters = choiceCharacters.concat(uppercaseCharacters)
-      pwdTxt = pwdTxt.concat(uppercaseCharacters[upperKey])
-
-    } else if (
-      pwdChoice.charLower = true) {
-      choiceCharacters = choiceCharacters.concat(lowercaseCharacters)
-      pwdTxt = pwdTxt.concat(lowercaseCharacters[lowerKey])
-
-    } else if (
-      pwdChoice.charNumber = true) {
-      choiceCharacters = choiceCharacters.concat(numberCharacters)
-      pwdTxt = pwdTxt.concat(numberCharacters[numKey])
-
-
-    } else if (
-      pwdChoice.charSpecial = true) {
-      choiceCharacters = choiceCharacters.concat(specialCharacters)
-      pwdTxt = pwdTxt.concat(specialCharacters[spcKey])
-    }    
-    console.log(pwdChoice.charNum);
-    console.log(pwdTxt.length);
-    console.log(pwdTxt);
-
-    let countNum = pwdTxt.length;
-    console.log(countNum);
-    for (let i = 0; i < (pwdChoice.charNum - countNum); i++) {
-      choiceKey = Math.floor((Math.random() * choiceCharacters.length) + 1);
-      pwdTxt = pwdTxt.concat(choiceCharacters[choiceKey])
-      console.log(pwdTxt);
-    }
+  if (pwdChoice.charNumber === true) {
+    choiceCharacters = choiceCharacters.concat(numberCharacters);
+    pwdTxt = pwdTxt.concat(numberCharacters[numKey]);
+    console.log(pwdChoice.charNumber);
   }
 
-    // Write password to the #password input
-    function writePassword() {
-      console.log("Clicked On")
-      let password = generatePassword();
-      let passwordText = document.querySelector("#password");
-      passwordText.value = pwdTxt;
+  if (pwdChoice.charSpecial === true) {
+    choiceCharacters = choiceCharacters.concat(specialCharacters);
+    pwdTxt = pwdTxt.concat(specialCharacters[spcKey]);
+    console.log(pwdChoice.charSpecial);
+  }
 
-    }
+  let countNum = pwdTxt.length;
+  console.log(countNum);
 
-    // Add event listener to generate button
-    generateBtn.addEventListener("click", writePassword);
+  for (let i = 0; i < (pwdChoice.charNum - countNum); i++) {
+     choiceKey = Math.floor((Math.random() * choiceCharacters.length) + 1);
+    pwdTxt = pwdTxt.concat(choiceCharacters[choiceKey])
+  }
+  let pwdString = pwdTxt.join("");
+  console.log(pwdTxt);
+  console.log(pwdChoice);
+  return pwdString;
+}
+// Write password to the #password input
+function writePassword() {
+  console.log("Clicked On")
+  let password = generatePassword();
+  let passwordText = document.querySelector("#password");
+  passwordText.value = password;
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 // if (alphabetNumericCharacters.includes(key)) {
   // for (let i = 0; i < elements.length; i++) {
     // elements[i].textContent += event.key
   // }
- 
+
 
