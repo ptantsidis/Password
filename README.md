@@ -34,9 +34,9 @@ ____
   Prompt users for answers.
   Store user selections in pwdChoice.
   Validate choices that at least one is selected or start again.
-  Create Indiidual index keys for the character arrays.
+  Create individual index keys for the character arrays.
   Go through users selections and get a least one character from each user chosen array.
-  Merge chosen arrays together and complete number of characters randomly from combined arrays whcich creates password.
+  Merge chosen arrays together and complete number of characters randomly from combined arrays which creates password.
   Clear pwdTxt array of commas be creating string of password to display on screen.
 
   ## Usage
